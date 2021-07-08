@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:id="@+id/List"
+        android:title="ListView" />
+    <item android:id="@+id/Imu"
+        android:title="Graphs RPY" />
+    <item android:id="@+id/Sensors"
+        android:title="Graphs THP" />
+    <item android:id="@+id/Led"
+        android:title="LED Panel" />
+    <item android:id="@+id/Joystick"
+        android:title="Joystick" />
+    <item android:id="@+id/Settings"
+        android:title="Settings" />
+</menu>

@@ -1,0 +1,24 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+>
+    <PreferenceCategory
+        android:title="General Settings"
+        android:key="MySharedPref">
+
+    <EditTextPreference
+        android:key="IP_address"
+        android:title="Set IP adress"
+        android:defaultValue="192.168.1.12" />
+
+    <EditTextPreference
+        android:key="Sampling_Time"
+        android:title="Set Sampling Time"
+        android:defaultValue="800" />
+
+    <EditTextPreference
+        android:key="Default_LED_Color"
+        android:title="Set Default Led Color"
+        android:defaultValue="9F8F9F" />
+    </PreferenceCategory>
+</PreferenceScreen>
