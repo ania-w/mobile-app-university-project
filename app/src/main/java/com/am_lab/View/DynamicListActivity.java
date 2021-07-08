@@ -30,20 +30,24 @@ import butterknife.ButterKnife;
 
 public class DynamicListActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
+    //ViewModel
     private ReceivedDataViewModel viewModel;
 
+    //List for every data category
     @BindView(R.id.ImuList)
     RecyclerView ImuList;
-   @BindView(R.id.SensorsList_xml)
+    @BindView(R.id.SensorsList_xml)
     RecyclerView SensorsList;
     @BindView(R.id.JoystickList)
     RecyclerView JoystickList;
 
-    int samplingTime=800;
-
+    //Adapters for each list
     private SensorAdapter sensorAdapter = new SensorAdapter(new ArrayList<>());
     private AnglesAdapter anglesAdapter = new AnglesAdapter(new ArrayList<>());
     private JoystickAdapter joystickAdapter = new JoystickAdapter(new ArrayList<>());
+
+    //parameters
+    int samplingTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +55,24 @@ public class DynamicListActivity extends AppCompatActivity implements PopupMenu.
         setContentView(R.layout.activity_list);
 
         ButterKnife.bind(this);
-
         viewModel = new ViewModelProvider(this).get(ReceivedDataViewModel.class);
+
+        //region getting data from settings
         SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        samplingTime = Integer.parseInt(sh.getString("Sampling_Time", "800"));
         viewModel.setUrl(sh.getString("IP_address","null"));
-        viewModel.refresh();
+        //endregion
+
+        //region adapter setup
         ImuList.setLayoutManager(new LinearLayoutManager(this));
         ImuList.setAdapter(anglesAdapter);
         SensorsList.setLayoutManager(new LinearLayoutManager(this));
         SensorsList.setAdapter(sensorAdapter);
         JoystickList.setLayoutManager(new LinearLayoutManager(this));
         JoystickList.setAdapter(joystickAdapter);
+        //endregion
 
+        //region refreshing list every *sampling time* milliseconds
         boolean shouldStopLoop = false;
         Handler mHandler = new Handler();
 
@@ -75,12 +85,16 @@ public class DynamicListActivity extends AppCompatActivity implements PopupMenu.
                 }
             }
         };
-        observerViewModel();
 
         mHandler.post(runnable);
+        //endregion
 
+        //data update
+        observerViewModel();
+
+
+        //region menu listener
         Button btn = (Button) findViewById(R.id.btnShow);
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +105,12 @@ public class DynamicListActivity extends AppCompatActivity implements PopupMenu.
 
             }
         });
+        //endregion
     }
+
+    /**
+     * observator made to update every adapter data on data change
+     */
     private void observerViewModel() {
         viewModel.data.observe(this, dataModels -> {
             if (dataModels != null) {
@@ -102,6 +121,11 @@ public class DynamicListActivity extends AppCompatActivity implements PopupMenu.
         });
     }
 
+    /**
+     * Menu
+     * @param item item of the menu list
+     * @return true if id is correct
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
