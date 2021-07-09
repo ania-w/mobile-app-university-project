@@ -26,14 +26,17 @@ import java.util.prefs.PreferenceChangeListener;
 
 public class MySettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = MySettingsFragment.class.getSimpleName();
+    //settings
     SharedPreferences sharedPreferences;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        //preferences list stored in res/xml/settings_pref
         setPreferencesFromResource(R.xml.settings_pref, rootKey);
 
-
+        //region setting preference summary to its value
         Preference IPAddress = findPreference("IP_address");
         IPAddress.setSummary(sharedPreferences.getString("IP_address", ""));
 
@@ -42,6 +45,7 @@ public class MySettingsFragment extends PreferenceFragmentCompat implements Shar
 
        Preference LedColor = findPreference("Default_LED_Color");
         LedColor.setSummary(sharedPreferences.getString("Default_LED_Color", ""));
+        //endregion
 
     }
 
@@ -62,6 +66,11 @@ public class MySettingsFragment extends PreferenceFragmentCompat implements Shar
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
+    /**
+     * Listener awaiting preference changes
+     * @param sharedPreferences settings
+     * @param key preference key
+     */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Preference preference = findPreference(key);

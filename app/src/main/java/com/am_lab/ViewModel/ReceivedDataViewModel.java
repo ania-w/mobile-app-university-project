@@ -29,13 +29,19 @@ public class ReceivedDataViewModel extends ViewModel {
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
+    /**
+     * set url for server request
+     * @param _url
+     */
     public void setUrl(String _url){
         url=_url;
         DataService = IODataService.getInstance(url);
     }
 
+    /**
+     * Send server request, waiting for DataModel response
+     */
     public void refresh() {
-
         disposable.add(
                 DataService.getData()
                         .subscribeOn(Schedulers.newThread())
@@ -55,19 +61,11 @@ public class ReceivedDataViewModel extends ViewModel {
         );
     }
 
-    public List<SensorModel> getSensorList()
-    {
-        return data.getValue().getSensors();
-    }
-    public List<JoystickModel> getJoystickList()
-    {
-        return data.getValue().getJoystick();
-    }
-    public List<AngleModel> getAnglesList()
-    {
-        return data.getValue().getAngles();
-    }
-
+    //region get DataModel data
+    public List<SensorModel> getSensorList() {return data.getValue().getSensors();}
+    public List<JoystickModel> getJoystickList(){return data.getValue().getJoystick();}
+    public List<AngleModel> getAnglesList() { return data.getValue().getAngles(); }
+    //endregion
 
     @Override
     protected void onCleared() {

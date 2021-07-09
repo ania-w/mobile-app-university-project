@@ -28,21 +28,24 @@ import java.util.TimerTask;
 
 public class JoystickActivity  extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    //timer
+
+    //region timer
     boolean shouldStopLoop = false;
     Handler mHandler = new Handler();
     Runnable runnable;
+    //endregion
 
     //ViewModel
     private ReceivedDataViewModel viewModel;
 
-    //graph
+    //region graph
     int samplingTime;
     int[] range = {0, 7};
     int X;
     int Y;
     int CENTER;
     public GraphModel joystickGraphModel = new GraphModel();
+    //endregion
 
 
     @Override
@@ -53,12 +56,18 @@ public class JoystickActivity  extends AppCompatActivity implements PopupMenu.On
 
         viewModel = new ViewModelProvider(this).get(ReceivedDataViewModel.class);
 
+        //region getting data from settings
         SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         samplingTime = Integer.parseInt(sh.getString("Sampling_Time", "800"));
         viewModel.setUrl(sh.getString("IP_address","null"));
-        joystickGraphModel.initPointGraph(samplingTime, range, range, "Y", "X", (GraphView) findViewById(R.id.dataGraph_joystick));
-        viewModel.refresh();
+        //endregion
 
+        //init graph
+        joystickGraphModel.initPointGraph(samplingTime, range, range, "Y", "X", (GraphView) findViewById(R.id.dataGraph_joystick));
+        joystickGraphModel.dataGraph.getGridLabelRenderer().setNumVerticalLabels(8);
+        joystickGraphModel.dataGraph.getGridLabelRenderer().setNumHorizontalLabels(8);
+
+        //region menu listener
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,15 +78,16 @@ public class JoystickActivity  extends AppCompatActivity implements PopupMenu.On
 
             }
         });
+        //endregion
 
-
+        //data update
         observerViewModel();
-
-
     }
 
+    /**
+     * observator made to update joystick position and center counter
+     */
     private void observerViewModel() {
-
         viewModel.data.observe(this, data -> {
             if (data != null) {
                 Y=Integer.parseInt(viewModel.getJoystickList().get(0).getX());
@@ -87,8 +97,9 @@ public class JoystickActivity  extends AppCompatActivity implements PopupMenu.On
         });
     }
 
+    //region timer handling
+    //new timer task initialization
     public void startGraph(View view) {
-
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -101,30 +112,44 @@ public class JoystickActivity  extends AppCompatActivity implements PopupMenu.On
         mHandler.post(runnable);
     }
 
+    //cancel ongoin timer
     public void stopGraph(View view) {
     mHandler.removeCallbacks(runnable);}
+    //endregion
 
+    /**
+     * update joystick point position and center counter
+     */
     public void update() {
         viewModel.refresh();
+
+        //remove last data and add new
         joystickGraphModel.dataGraph.removeAllSeries();
         joystickGraphModel.initPointGraph(samplingTime, range, range, "Y", "X", (GraphView) findViewById(R.id.dataGraph_joystick));
         joystickGraphModel.dataGraph.addSeries(joystickGraphModel.pointDataSeries);
         joystickGraphModel.addPoint(X,Y);
+
+        //center counter
         TextView centerText=findViewById(R.id.center_count);
         centerText.setText(Integer.toString(CENTER));
     }
+
     /**
-     * @brief Stops request timer (if currently exist)
-     * and sets 'requestTimerFirstRequestAfterStop' flag.
+     * OnClick method,
+     * reinitialises graph, and sets counter to 0
+     * @param view
      */
-
-
     public void resetGraph(View view){
         joystickGraphModel.dataGraph.removeAllSeries();
         joystickGraphModel.initPointGraph(samplingTime, range, range, "Y", "X", (GraphView) findViewById(R.id.dataGraph_joystick));
         CENTER=0;
     }
 
+    /**
+     * Menu
+     * @param item item of the menu list
+     * @return true if id is correct
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();

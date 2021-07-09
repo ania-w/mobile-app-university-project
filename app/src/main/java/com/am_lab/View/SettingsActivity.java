@@ -46,6 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        //go to fragment for this activity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container_view, new MySettingsFragment())
@@ -54,14 +55,23 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
 
+    /**
+     * inflate popup menu in default action bar
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.popup_menu, menu);
-
         return true;
     }
 
+    /**
+     * Menu
+     * @param item item of the menu list
+     * @return true if id is correct
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent switchActivityIntent;

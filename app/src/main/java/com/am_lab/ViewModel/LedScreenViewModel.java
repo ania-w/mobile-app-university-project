@@ -26,12 +26,20 @@ public class LedScreenViewModel extends ViewModel {
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
+    /**
+     * set url for server request
+     * @param _url
+     */
     public void setUrl(String _url)
     {
         url=_url;
         DataService = IODataService.getInstance(url);
     }
 
+    /**
+     * build new led list
+     * Set ledScreen to default color
+     */
     public void clearList()
     {
         List<LedModel> blankList=new ArrayList<>();
@@ -55,8 +63,8 @@ public class LedScreenViewModel extends ViewModel {
 
     public LedScreenViewModel()
     {
-
-clearList();
+        //sey default list
+        clearList();
     }
 
     public void refresh(String jsonList,TextView loading) {
@@ -80,14 +88,10 @@ clearList();
         );
     }
 
-    public List<LedModel> getLedList()
-    {
-        return ledScreen.getValue();
-    }
-    public void setLedList(List<LedModel> ledList)
-    {
-        ledScreen.setValue(ledList);
-    }
+    //region get LedModel data
+    public List<LedModel> getLedList() { return ledScreen.getValue();  }
+    public void setLedList(List<LedModel> ledList) {ledScreen.setValue(ledList); }
+    //endregion
 
 
     @Override

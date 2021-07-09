@@ -89,10 +89,6 @@ public class DynamicListActivity extends AppCompatActivity implements PopupMenu.
         mHandler.post(runnable);
         //endregion
 
-        //data update
-        observerViewModel();
-
-
         //region menu listener
         Button btn = (Button) findViewById(R.id.btnShow);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +102,9 @@ public class DynamicListActivity extends AppCompatActivity implements PopupMenu.
             }
         });
         //endregion
+
+        //data update
+        observerViewModel();
     }
 
     /**

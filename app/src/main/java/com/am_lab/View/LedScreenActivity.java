@@ -27,11 +27,16 @@ import java.util.List;
 
 public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
+    //viewmodel
     private LedScreenViewModel viewModel;
+
+
+    //region UI elements
     GridLayout gridLayout;
     EditText colorInput;
     int color;
     TextView loading;
+    //endregion
 
 
 
@@ -42,17 +47,22 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
         Button btn = (Button) findViewById(R.id.btnShow);
 
         viewModel = new ViewModelProvider(this).get(LedScreenViewModel.class);
+
+        //region getting data from settings
         SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         viewModel.setUrl(sh.getString("IP_address","null"));
         color=Integer.parseInt(sh.getString("Def_Led_Color","0"));
+        //endregion
+
+        //region set screen layout
         colorInput= (EditText) findViewById(R.id.RGB);
-    colorInput.setText(sh.getString("Default_LED_Color","0"));
+        colorInput.setText(sh.getString("Default_LED_Color","0"));
         gridLayout=(GridLayout)findViewById(R.id.led_screen);
-        setData();
-
-
         loading=findViewById(R.id.loadingView);
+        setData();
+        //endregion
 
+        //region menu listener
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,9 +73,15 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
 
             }
         });
+        //endregion
     }
 
 
+    /**
+     * OnClick method,
+     * Sends updated LedModel list via viewmodel to server
+     * @param view
+     */
     public void sendLedData(View view)
     {
         List<LedModel> ledList= viewModel.getLedList();
@@ -73,6 +89,11 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
         viewModel.refresh(jsonList,loading);
     }
 
+    /**
+     * sends "[]" to server via viewmodel, which clears SenseHat screen
+     * sets app screen to default
+     * @param view
+     */
     public void resetLedData(View view)
     {
         gridLayout.removeAllViews();
@@ -81,39 +102,59 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
         setData();
     }
 
+    /**
+     * Dynamic Led Matrix setup
+     * GridLayout, 8x8, button id is its position in XY format
+     * e.g. id=34 equals x=3, y=4
+     * every button has OnClick listener, that changes its color according to user input, and updates viewmodels ledList
+     *
+     *
+     */
     public void setData() {
 
+        //parameters
         int column=gridLayout.getColumnCount();
         int row = gridLayout.getRowCount();
         int total = column*row;
+        //dynamic ledmatrix
         for (int i = 0, c = 0, r = 0; i < total; i++, c++) {
             if (c == column) {
                 c = 0;
                 r++;
             }
+            //button description
             Button button = new Button(this);
             button.setText(Integer.toString(c)+Integer.toString(r));
+            //id: column number+row unmber
             button.setId(Integer.parseInt(Integer.toString(c)+Integer.toString(r)));
             button.setTextSize(15);
+            //default color: grey
             button.setBackgroundColor(0xFF9F9F9F);
 
+            //onClickListener
             button.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //get user input
                     String input=colorInput.getText().toString();
                     try{
+                        //check if user input is correct hex color
                         color = Integer.parseInt(input,16);
                     }
                     catch(NumberFormatException err){
+                        //display message if input is incorrect hex color
                         colorInput.setHint("Wrong value!");
                         color=0x9F9F9F;
                     }
                     finally {
+                        //change viewModel and matrix button list color,
                         List<LedModel> ledList= viewModel.getLedList();
                         for (LedModel ledModel : ledList) {
+                            //if id is in range 0-9 add 0 in the beggining of a string (e.g. "7"->"07")
                             @SuppressLint("ResourceType")
                             String id=button.getId()<10?("0"+Integer.toString(button.getId())):Integer.toString(button.getId());
                             if (ledModel.getXY().equals(id)) {
+                                //color is in RGB, so mask is needed
                                 button.setBackgroundColor(0xFF000000+color);
                                 ledModel.setRGB(input.toUpperCase());
                                 viewModel.setLedList(ledList);
@@ -125,20 +166,34 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
                 }
             });
 
+            //region GridLayout initialisation
             GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 1);
             GridLayout.Spec colSpan = GridLayout.spec(GridLayout.UNDEFINED, 1);
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(
                     rowSpan, colSpan);
             gridParam.width = dp2px(this, 50.0f);
             gridLayout.addView(button,gridParam);
+            //endregion
         }
     }
+
+    /**
+     * dp to pixels conversion
+     * @param ctx activity context
+     * @param dp dp in number
+     * @return
+     */
     public static int dp2px(Context ctx, float dp) {
         final float scale = ctx.getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
     }
 
 
+    /**
+     * Menu
+     * @param item item of the menu list
+     * @return true if id is correct
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();

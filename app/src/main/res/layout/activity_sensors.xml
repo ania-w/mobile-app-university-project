@@ -72,7 +72,7 @@
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/dataGraph_sensors"
-            android:layout_width="350dp"
+            android:layout_width="379dp"
             android:layout_height="405dp"
             android:layout_gravity="center"
             android:padding="30dp"

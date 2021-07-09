@@ -111,6 +111,7 @@ public class GraphModel {
         this.setSamplingTime(samplingTime);
         this.setDataGraph(view);
         this.setDataSeries();
+        dataGraph.getGridLabelRenderer().setNumVerticalLabels(10);
         this.dataGraph.getViewport().setXAxisBoundsManual(true);
         this.dataGraph.getViewport().setMinX( rangeX[0]);
         this.dataGraph.getViewport().setMaxX(rangeX[1]);
@@ -119,7 +120,6 @@ public class GraphModel {
         this.dataGraph.getViewport().setMaxY(rangeY[1]);
         this.setTitleX(titleX);
         this.setTitleY(titleY);
-
     }
 
 
@@ -129,11 +129,11 @@ public class GraphModel {
         this.dataGraph.onDataChanged(true, true);
     }
     public void updateSecond(double timeStamp,double rawData,boolean scrollGraph) {
-        this.dataSeries3.appendData(new DataPoint(timeStamp, rawData), scrollGraph, dataGraphMaxDataPointsNumber);
+        this.dataSeries2.appendData(new DataPoint(timeStamp, rawData), scrollGraph, dataGraphMaxDataPointsNumber);
         this.dataGraph.onDataChanged(true, true);
     }
     public void updateThird(double timeStamp,double rawData,boolean scrollGraph) {
-        this.dataSeries2.appendData(new DataPoint(timeStamp, rawData), scrollGraph, dataGraphMaxDataPointsNumber);
+        this.dataSeries3.appendData(new DataPoint(timeStamp, rawData), scrollGraph, dataGraphMaxDataPointsNumber);
         this.dataGraph.onDataChanged(true, true);
     }
     //endregion
