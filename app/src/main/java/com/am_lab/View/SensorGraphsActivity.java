@@ -148,6 +148,7 @@ public class SensorGraphsActivity  extends AppCompatActivity implements PopupMen
         //clear graph
         sensorGraphModel.dataGraph.removeAllSeries();
         sensorGraphModel.dataGraph.getSecondScale().removeAllSeries();
+        sensorGraphModel.dataGraph.clearSecondScale();
 
         //init default graph
         sensorGraphModel.init(samplingTime, rangeX, range_temperature, " ", "t[s]", (GraphView) findViewById(R.id.dataGraph_sensors));
@@ -294,6 +295,7 @@ public class SensorGraphsActivity  extends AppCompatActivity implements PopupMen
                     sensorGraphModel.setTitleY("Temperature [C]");
                     sensorGraphModel.dataGraph.getViewport().setMinY(range_temperature[0]);
                     sensorGraphModel.dataGraph.getViewport().setMaxY(range_temperature[1]);
+                    sensorGraphModel.dataGraph.getSecondScale().removeAllSeries();
                 }
                 if (checkHum.isChecked()&&!checkTemp.isChecked()&&!checkPress.isChecked()){
                     sensorGraphModel.dataGraph.addSeries(sensorGraphModel.dataSeries3);
