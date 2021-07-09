@@ -264,6 +264,7 @@ public class SensorGraphsActivity  extends AppCompatActivity implements PopupMen
 
                     sensorGraphModel.dataGraph.getSecondScale().addSeries(sensorGraphModel.dataSeries3);
                     sensorGraphModel.dataGraph.getSecondScale().setVerticalAxisTitle("Humidity [%]");
+                    sensorGraphModel.dataGraph.getSecondScale().setVerticalAxisTitleTextSize(14);
                     sensorGraphModel.dataGraph.getSecondScale().setMinY(range_humidity[0]);
                     sensorGraphModel.dataGraph.getSecondScale().setMaxY(range_humidity[1]);
                 }
