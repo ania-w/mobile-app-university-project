@@ -24,13 +24,9 @@
             android:text="@string/reset_button_label"
             android:textColor="@color/button_text" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:orientation="horizontal">
-
-        </LinearLayout>
+            android:layout_height="18dp" />
 
         <android.widget.GridLayout
             android:id="@+id/led_screen"

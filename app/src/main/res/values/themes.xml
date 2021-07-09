@@ -3,9 +3,9 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#BB1142</item>
         <item name="colorPrimaryDark">#000000</item>
-        <item name="colorAccent">#BB1142</item>
+        <item name="colorAccent">#000000</item>
         <item name="colorButtonNormal">#000000</item>
-        <item name="colorControlHighlight">#BB1142</item>
+        <item name="colorControlHighlight">#000000</item>
         <item name="colorSwitchThumbNormal">#000000</item>
     </style>
 </resources>

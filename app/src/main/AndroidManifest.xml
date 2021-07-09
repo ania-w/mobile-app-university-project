@@ -4,8 +4,6 @@
     <!-- Allows applications to access information about networks. Protection level: normal -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Allows applications to open network sockets. Protection level: normal -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
