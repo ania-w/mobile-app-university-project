@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="startGraph"
-                android:text="START" />
+                android:text="@string/start_button_label"
+                android:textColor="@color/button_text" />
 
             <Button
                 android:id="@+id/button3"
@@ -40,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="stopGraph"
-                android:text="STOP" />
+                android:text="@string/stop_button_label"
+                android:textColor="@color/button_text" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -89,62 +91,8 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:onClick="resetGraph"
-                android:text="RESET" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#000000"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/PageTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:fontFamily="sans-serif-light"
-                android:gravity="center"
-                android:paddingStart="20dp"
-                android:text="Ehh"
-                android:textColor="#FFFFFF"
-                android:textSize="22sp"
-                tools:text="Joystick Position Graph"
-                tools:visibility="visible" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/btnShow"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="#BB1142"
-                android:fontFamily="sans-serif-light"
-                android:text="MENU"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                tools:visibility="visible" />
-
+                android:text="@string/reset_button_label"
+                android:textColor="@color/button_text" />
         </LinearLayout>
 
     </LinearLayout>

@@ -90,7 +90,7 @@ public class GraphModel {
         this.setPointDataSeries();
         this.dataGraph.getViewport().setXAxisBoundsManual(true);
         this.dataGraph.getViewport().setMinX( rangeX[0]);
-        this.dataGraph.getViewport().setMaxX(rangeX[1]);
+        this.dataGraph.getViewport().setMaxX(rangeX[1]+0.35);
         this.dataGraph.getViewport().setYAxisBoundsManual(true);
         this.dataGraph.getViewport().setMinY(rangeY[0]);
         this.dataGraph.getViewport().setMaxY(rangeY[1]);

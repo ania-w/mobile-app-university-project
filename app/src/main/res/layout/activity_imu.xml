@@ -51,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="startGraph"
-                android:text="START" />
+                android:text="@string/start_button_label"
+                android:textColor="@color/button_text" />
 
             <Button
                 android:id="@+id/reset_btn"
@@ -59,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="resetSensorGraph"
-                android:text="reset" />
+                android:text="@string/reset_button_label"
+                android:textColor="@color/button_text" />
 
             <Button
                 android:id="@+id/stop"
@@ -67,7 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="stopGraph"
-                android:text="STOP" />
+                android:text="@string/stop_button_label"
+                android:textColor="@color/button_text" />
         </LinearLayout>
 
         <com.jjoe64.graphview.GraphView
@@ -143,7 +146,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="setSamplingTime"
-                android:text="set sampling time"
+                android:text="@string/sp_button_label"
+                android:textColor="@color/button_text"
                 android:textSize="12sp"
                 app:iconPadding="3dp"
                 app:layout_constraintBottom_toTopOf="@+id/dataGraph2"
@@ -152,61 +156,6 @@
                 app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.727" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#000000"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/PageTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:fontFamily="sans-serif-light"
-                android:gravity="center"
-                android:paddingStart="20dp"
-                android:text="Imu RPY Graph"
-                android:textColor="#FFFFFF"
-                android:textSize="22sp"
-                tools:text="Sensors Graph"
-                tools:visibility="visible" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/btnShow"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="#BB1142"
-                android:fontFamily="sans-serif-light"
-                android:text="MENU"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                tools:visibility="visible" />
 
         </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,7 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class LedScreenActivity  extends AppCompatActivity {
 
     //viewmodel
     private LedScreenViewModel viewModel;
@@ -44,7 +45,6 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_led);
-        Button btn = (Button) findViewById(R.id.btnShow);
 
         viewModel = new ViewModelProvider(this).get(LedScreenViewModel.class);
 
@@ -60,19 +60,6 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
         gridLayout=(GridLayout)findViewById(R.id.led_screen);
         loading=findViewById(R.id.loadingView);
         setData();
-        //endregion
-
-        //region menu listener
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(LedScreenActivity.this, v);
-                popup.setOnMenuItemClickListener(LedScreenActivity.this);
-                popup.inflate(R.menu.popup_menu);
-                popup.show();
-
-            }
-        });
         //endregion
     }
 
@@ -129,7 +116,7 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
             button.setId(Integer.parseInt(Integer.toString(c)+Integer.toString(r)));
             button.setTextSize(15);
             //default color: grey
-            button.setBackgroundColor(0xFF9F9F9F);
+            button.setBackgroundColor(0xFF424242);
 
             //onClickListener
             button.setOnClickListener(new Button.OnClickListener() {
@@ -144,7 +131,7 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
                     catch(NumberFormatException err){
                         //display message if input is incorrect hex color
                         colorInput.setHint("Wrong value!");
-                        color=0x9F9F9F;
+                        color=0x424242;
                     }
                     finally {
                         //change viewModel and matrix button list color,
@@ -188,6 +175,17 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
         return (int) (dp * scale + 0.5f);
     }
 
+    /**
+     * inflate popup menu in default action bar
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.popup_menu, menu);
+        return true;
+    }
 
     /**
      * Menu
@@ -195,9 +193,9 @@ public class LedScreenActivity  extends AppCompatActivity implements PopupMenu.O
      * @return true if id is correct
      */
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent switchActivityIntent;
+
         switch (item.getItemId()) {
             case R.id.List:
                 switchActivityIntent = new Intent(LedScreenActivity.this, DynamicListActivity.class);

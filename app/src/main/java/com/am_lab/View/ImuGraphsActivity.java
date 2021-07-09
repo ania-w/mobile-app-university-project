@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +28,7 @@ import com.jjoe64.graphview.LegendRenderer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ImuGraphsActivity  extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class ImuGraphsActivity  extends AppCompatActivity  {
 
 
     //region timer
@@ -66,7 +67,6 @@ public class ImuGraphsActivity  extends AppCompatActivity implements PopupMenu.O
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imu);
-        Button btn = (Button) findViewById(R.id.btnShow);
 
         viewModel = new ViewModelProvider(this).get(ReceivedDataViewModel.class);
 
@@ -87,18 +87,6 @@ public class ImuGraphsActivity  extends AppCompatActivity implements PopupMenu.O
         samplingTimeTextView.setText(Integer.toString(samplingTime));
         //endregion
 
-        //region menu listener
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(ImuGraphsActivity.this, v);
-                popup.setOnMenuItemClickListener(ImuGraphsActivity.this);
-                popup.inflate(R.menu.popup_menu);
-                popup.show();
-
-            }
-        });
-        //endregion
 
         //data update
         observerViewModel();
@@ -295,7 +283,17 @@ public class ImuGraphsActivity  extends AppCompatActivity implements PopupMenu.O
         }
     }
 
+    /**
+     * inflate popup menu in default action bar
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        getMenuInflater().inflate(R.menu.popup_menu, menu);
+        return true;
+    }
 
     /**
      * Menu
@@ -303,9 +301,9 @@ public class ImuGraphsActivity  extends AppCompatActivity implements PopupMenu.O
      * @return true if id is correct
      */
     @Override
-    public boolean onMenuItemClick (MenuItem item){
-        Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent switchActivityIntent;
+
         switch (item.getItemId()) {
             case R.id.List:
                 switchActivityIntent = new Intent(ImuGraphsActivity.this, DynamicListActivity.class);

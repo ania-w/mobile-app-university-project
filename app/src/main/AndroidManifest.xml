@@ -12,16 +12,20 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:theme="@style/Pref"
         android:usesCleartextTraffic="true">
-        <activity android:name=".View.LedScreenActivity"/>
-        <activity android:name=".View.ImuGraphsActivity"/>
-        <activity android:name=".View.JoystickActivity"/>
-        <activity android:name=".View.SensorGraphsActivity"/>
+        <activity android:name=".View.LedScreenActivity"
+            android:label="Led Panel"/>
+        <activity android:name=".View.ImuGraphsActivity"
+            android:label="Graphs RPY"/>
+        <activity android:name=".View.JoystickActivity"
+            android:label="Joystick"/>
+        <activity android:name=".View.SensorGraphsActivity"
+            android:label="Graphs THP"/>
         <activity android:name=".View.SettingsActivity"
-            android:theme="@style/Pref"
             android:label="Settings"/>
-        <activity android:name=".View.DynamicListActivity">
+        <activity android:name=".View.DynamicListActivity"
+            android:label="List View">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

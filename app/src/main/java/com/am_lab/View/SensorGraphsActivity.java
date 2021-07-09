@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +28,7 @@ import com.jjoe64.graphview.LegendRenderer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SensorGraphsActivity  extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class SensorGraphsActivity  extends AppCompatActivity  {
 
     //region timer
     private Timer requestTimer;
@@ -67,7 +68,6 @@ public class SensorGraphsActivity  extends AppCompatActivity implements PopupMen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensors);
-        Button btn = (Button) findViewById(R.id.btnShow);
 
         viewModel = new ViewModelProvider(this).get(ReceivedDataViewModel.class);
 
@@ -85,19 +85,6 @@ public class SensorGraphsActivity  extends AppCompatActivity implements PopupMen
         checkTemp = (CheckBox) findViewById(R.id.temp_check);
         checkHum = (CheckBox) findViewById(R.id.humidity_check);
         checkPress = (CheckBox) findViewById(R.id.pressure_check);
-        //endregion
-
-        //region menu listener
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(SensorGraphsActivity.this, v);
-                popup.setOnMenuItemClickListener(SensorGraphsActivity.this);
-                popup.inflate(R.menu.popup_menu);
-                popup.show();
-
-            }
-        });
         //endregion
 
         //data update
@@ -326,6 +313,18 @@ public class SensorGraphsActivity  extends AppCompatActivity implements PopupMen
         }
     }
 
+    /**
+     * inflate popup menu in default action bar
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.popup_menu, menu);
+        return true;
+    }
+
 
     /**
      * Menu
@@ -333,9 +332,9 @@ public class SensorGraphsActivity  extends AppCompatActivity implements PopupMen
      * @return true if id is correct
      */
         @Override
-        public boolean onMenuItemClick (MenuItem item){
-            Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+        public boolean onOptionsItemSelected(MenuItem item) {
             Intent switchActivityIntent;
+
             switch (item.getItemId()) {
                 case R.id.List:
                     switchActivityIntent = new Intent(SensorGraphsActivity.this, DynamicListActivity.class);

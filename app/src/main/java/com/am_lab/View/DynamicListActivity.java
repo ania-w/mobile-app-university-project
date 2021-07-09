@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DynamicListActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class DynamicListActivity extends AppCompatActivity{
 
     //ViewModel
     private ReceivedDataViewModel viewModel;
@@ -89,20 +90,6 @@ public class DynamicListActivity extends AppCompatActivity implements PopupMenu.
         mHandler.post(runnable);
         //endregion
 
-        //region menu listener
-        Button btn = (Button) findViewById(R.id.btnShow);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(DynamicListActivity.this, v);
-                popup.setOnMenuItemClickListener(DynamicListActivity.this);
-                popup.inflate(R.menu.popup_menu);
-                popup.show();
-
-            }
-        });
-        //endregion
-
         //data update
         observerViewModel();
     }
@@ -121,14 +108,26 @@ public class DynamicListActivity extends AppCompatActivity implements PopupMenu.
     }
 
     /**
+     * inflate popup menu in default action bar
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.popup_menu, menu);
+        return true;
+    }
+
+    /**
      * Menu
      * @param item item of the menu list
      * @return true if id is correct
      */
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent switchActivityIntent;
+
         switch (item.getItemId()) {
             case R.id.List:
                 switchActivityIntent = new Intent(DynamicListActivity.this, DynamicListActivity.class);

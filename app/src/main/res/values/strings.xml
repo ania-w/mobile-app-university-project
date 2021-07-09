@@ -19,11 +19,12 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-    <string name="back_button_label">Back</string>
-    <string name="next_button_label">Next</string>
+    <!--  Strings for buttons -->
+    <string name="start_button_label">START</string>
+    <string name="stop_button_label">STOP</string>
+    <string name="reset_button_label">RESET</string>
+    <string name="sp_button_label">SET SAMPLING TIME</string>
+    <string name="send_button_label">SEND</string>
 
-    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-    <string name="skip_button_label">Skip</string>
 
 </resources>

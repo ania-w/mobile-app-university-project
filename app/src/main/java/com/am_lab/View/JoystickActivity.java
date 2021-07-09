@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,7 @@ import com.jjoe64.graphview.LegendRenderer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class JoystickActivity  extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class JoystickActivity  extends AppCompatActivity{
 
 
     //region timer
@@ -52,7 +53,6 @@ public class JoystickActivity  extends AppCompatActivity implements PopupMenu.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joystick);
-        Button btn = (Button) findViewById(R.id.btnShow);
 
         viewModel = new ViewModelProvider(this).get(ReceivedDataViewModel.class);
 
@@ -66,19 +66,6 @@ public class JoystickActivity  extends AppCompatActivity implements PopupMenu.On
         joystickGraphModel.initPointGraph(samplingTime, range, range, "Y", "X", (GraphView) findViewById(R.id.dataGraph_joystick));
         joystickGraphModel.dataGraph.getGridLabelRenderer().setNumVerticalLabels(8);
         joystickGraphModel.dataGraph.getGridLabelRenderer().setNumHorizontalLabels(8);
-
-        //region menu listener
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(JoystickActivity.this, v);
-                popup.setOnMenuItemClickListener(JoystickActivity.this);
-                popup.inflate(R.menu.popup_menu);
-                popup.show();
-
-            }
-        });
-        //endregion
 
         //data update
         observerViewModel();
@@ -144,6 +131,17 @@ public class JoystickActivity  extends AppCompatActivity implements PopupMenu.On
         joystickGraphModel.initPointGraph(samplingTime, range, range, "Y", "X", (GraphView) findViewById(R.id.dataGraph_joystick));
         CENTER=0;
     }
+    /**
+     * inflate popup menu in default action bar
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.popup_menu, menu);
+        return true;
+    }
 
     /**
      * Menu
@@ -151,9 +149,9 @@ public class JoystickActivity  extends AppCompatActivity implements PopupMenu.On
      * @return true if id is correct
      */
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent switchActivityIntent;
+
         switch (item.getItemId()) {
             case R.id.List:
                 switchActivityIntent = new Intent(JoystickActivity.this, DynamicListActivity.class);
