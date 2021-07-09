@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.am_lab.Model.DataModel.DataModel;
 import com.am_lab.Model.DataModel.AngleModel;
+import com.am_lab.Model.DataModel.DataModel;
 import com.am_lab.R;
 
 import java.util.List;

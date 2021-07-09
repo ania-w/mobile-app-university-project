@@ -4,15 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,10 +17,6 @@ import com.am_lab.Model.DataModel.GraphModel;
 import com.am_lab.R;
 import com.am_lab.ViewModel.ReceivedDataViewModel;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.LegendRenderer;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class JoystickActivity  extends AppCompatActivity{
 
