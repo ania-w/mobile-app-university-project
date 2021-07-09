@@ -93,7 +93,7 @@ public class ImuGraphsActivity  extends AppCompatActivity  {
     }
 
     /**
-     * observator made to update every angle variable on data change
+     * observer made to update every angle variable on data change
      */
     private void observerViewModel() {
         viewModel.data.observe(this, imu -> {
@@ -219,7 +219,7 @@ public class ImuGraphsActivity  extends AppCompatActivity  {
     }
 
     /**
-     * Updates all graphs, updates data via viewmodel refreshing, adds legend
+     * Updates all graphs, updates data via viewModel refreshing, adds legend
      */
     public void update() {
         viewModel.refresh();

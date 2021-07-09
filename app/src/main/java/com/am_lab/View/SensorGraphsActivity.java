@@ -8,12 +8,9 @@ import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -92,7 +89,7 @@ public class SensorGraphsActivity  extends AppCompatActivity  {
     }
 
     /**
-     * observator made to update every sensor data variable on data change
+     * observer made to update every sensor data variable on data change
      */
     private void observerViewModel() {
         viewModel.data.observe(this, imu -> {
@@ -105,7 +102,7 @@ public class SensorGraphsActivity  extends AppCompatActivity  {
     }
 
     /**
-     * OnClick method,
+     *
      * changes sampling time based on users input
      * @param view
      */
@@ -220,7 +217,7 @@ public class SensorGraphsActivity  extends AppCompatActivity  {
 
 
     /**
-     * Updates all graphs, updates data via viewmodel refreshing, adds legend
+     * Updates all graphs, updates data via vieModel refreshing, adds legend
      */
     public void update() {
         viewModel.refresh();

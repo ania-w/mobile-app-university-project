@@ -95,7 +95,7 @@ public class DynamicListActivity extends AppCompatActivity{
     }
 
     /**
-     * observator made to update every adapter data on data change
+     * observer made to update every adapter data on data change
      */
     private void observerViewModel() {
         viewModel.data.observe(this, dataModels -> {

@@ -72,7 +72,7 @@ public class JoystickActivity  extends AppCompatActivity{
     }
 
     /**
-     * observator made to update joystick position and center counter
+     * observer made to update joystick position and center counter
      */
     private void observerViewModel() {
         viewModel.data.observe(this, data -> {
